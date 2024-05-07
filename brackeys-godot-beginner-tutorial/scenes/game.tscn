@@ -1,11 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://rco6nvcqfobl"]
+[gd_scene load_steps=16 format=3 uid="uid://rco6nvcqfobl"]
 
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_rmuwg"]
 [ext_resource type="PackedScene" uid="uid://ctp24n50wp2je" path="res://scenes/player.tscn" id="1_wmwn8"]
 [ext_resource type="Texture2D" uid="uid://b0rwbh1uddx1g" path="res://assets/sprites/world_tileset.png" id="2_th6dx"]
 [ext_resource type="PackedScene" uid="uid://dlq23hqaijcwi" path="res://scenes/plataform.tscn" id="3_ddtr6"]
+[ext_resource type="FontFile" uid="uid://bv4vqpys4uq8c" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_oie3x"]
 [ext_resource type="PackedScene" uid="uid://c51m61wn8ksck" path="res://scenes/coin.tscn" id="4_f1ftk"]
 [ext_resource type="PackedScene" uid="uid://brfdqia0ebbv6" path="res://scenes/killzone.tscn" id="5_benxr"]
 [ext_resource type="PackedScene" uid="uid://r5n8j5fhhjdk" path="res://scenes/slime.tscn" id="6_ggnxn"]
+[ext_resource type="FontFile" uid="uid://c45bide7knc27" path="res://assets/fonts/PixelOperator8.ttf" id="7_lfklu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u4iem"]
 texture = ExtResource("2_th6dx")
@@ -445,8 +448,30 @@ _data = {
 
 [node name="Game" type="Node2D"]
 
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_rmuwg")
+
+[node name="ScoreLabel" type="Label" parent="GameManager"]
+offset_left = 456.0
+offset_top = -54.0
+offset_right = 593.0
+offset_bottom = -45.0
+theme_override_fonts/font = ExtResource("7_lfklu")
+theme_override_font_sizes/font_size = 8
+text = "Você coletou x moedas"
+
+[node name="Label" type="Label" parent="GameManager"]
+offset_left = 456.0
+offset_top = -65.0
+offset_right = 593.0
+offset_bottom = -55.0
+theme_override_fonts/font = ExtResource("3_oie3x")
+theme_override_font_sizes/font_size = 8
+text = "Você conseguiu!"
+
 [node name="Player" parent="." instance=ExtResource("1_wmwn8")]
-position = Vector2(1, 2)
+position = Vector2(-53, 12)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-1, -2)
@@ -504,8 +529,21 @@ autoplay = "move"
 [node name="Plataform2" parent="Platforms" instance=ExtResource("3_ddtr6")]
 position = Vector2(0, -26)
 
-[node name="Slime" parent="." instance=ExtResource("6_ggnxn")]
+[node name="Slimes" type="Node" parent="."]
+
+[node name="Slime" parent="Slimes" instance=ExtResource("6_ggnxn")]
 position = Vector2(120, -16)
 
-[node name="Slime2" parent="." instance=ExtResource("6_ggnxn")]
+[node name="Slime2" parent="Slimes" instance=ExtResource("6_ggnxn")]
 position = Vector2(40, 16)
+
+[node name="Labels" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="Labels"]
+offset_left = -192.0
+offset_top = -22.0
+offset_right = -105.0
+offset_bottom = -12.0
+theme_override_fonts/font = ExtResource("7_lfklu")
+theme_override_font_sizes/font_size = 8
+text = "Space to jump"
